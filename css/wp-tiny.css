@@ -1,0 +1,79 @@
+@font-face {
+    font-family: 'SVN-Gotham';
+    src: url('../fonts/SVN-Gotham-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+.edit-link, .site-footer, .site-header, .entry-header {
+    display: none;
+}
+.text-center {
+    text-align: center;
+}
+.site-content{
+   background: url(../images/hiroxwapuu.jpg) top center no-repeat;
+   height: 100vh;
+   background-size: cover;
+}
+.form-element {
+    padding: 16px;
+}
+.form-element form {
+    max-width: 400px;
+    margin: 50px auto;
+}
+.form-element .form-group {
+    margin-bottom: 15px;
+}
+.form-element .form-group > * {
+    display: block;
+}
+.form-element form label {
+    margin-bottom: 5px;
+}
+.form-element form label,
+.form-element form strong {
+    font-family: 'SVN-Gotham';
+    color: #343a40;
+}
+.form-element .form-group .form-control {
+    width: 100%;
+    border: 1px solid #69768c;
+    border-radius: 40px;
+    color: #495057;
+    font-size: 16px;
+}
+.form-element form input[type="submit"] {
+    display: inline-block;
+    margin-top: 35px;
+    background-color: transparent;
+    border: 2px solid transparent;
+    color: #008979;
+    border-color: #008979;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 40px;
+    line-height: 1.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-element form input[type="submit"]:hover {
+    color: #fff;
+    background-color: #008979;
+    border-color: #008979;
+}
+.form-element form input:focus {
+    outline-color: #008979;
+}
+.form-element form .input-group > *,
+.form-element form .input-group .form-control {
+    display: inline-block;
+}
+.form-element form .input-group strong {
+    width: 100px;
+    text-align: center;
+}
+.form-element form .input-group .form-control {
+    width: calc(100% - 100px);
+} 
