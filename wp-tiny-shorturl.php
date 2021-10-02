@@ -73,6 +73,14 @@ if (!function_exists('wptiny_option_page')) {
                             </td>
                         </tr>
                         <tr>
+                            <th scope="row"><label for="domains">Page Slugs</label></th>
+                            <td>
+                                <?php $page_slugs = get_option('page_slugs'); ?>
+                                <textarea name="page_slugs" rows="10" class="regular-text"><?php echo $page_slugs; ?></textarea>
+                                <p class="description">Enter your page slug with each page separated by commas(,)</p>
+                            </td>
+                        </tr>
+                        <tr>
                             <th scope="row"><label for="usage">Usage</label></th>
                             <td>
                                 <p class="description">Use shortcode <strong>[wptiny_form]</strong> in content page to show layout.</p>
@@ -97,7 +105,12 @@ if (!function_exists('wptiny_save_data_settings')) {
                 if (!empty($_POST['api_token'])) {
                     update_option('api_token', $_POST['api_token']);
                 }
+
                 update_option('domains', $_POST['domains']);
+
+                if (!empty($_POST['api_token'])) {
+                    update_option('page_slugs', $_POST['page_slugs']);
+                }
                 echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
             }
         }
@@ -190,4 +203,19 @@ function wptiny_pluginspage_links($links, $file)
         );
     }
     return $links;
+}
+
+
+add_filter('body_class', 'wptiny_add_body_class_page_shortlink');
+function wptiny_add_body_class_page_shortlink($classes)
+{
+    $page_slugs = get_option('page_slugs');
+    $page_arr = explode(',', $page_slugs);
+    $current_slug = get_post_field('post_name', get_the_ID());
+
+    if (in_array($current_slug, $page_arr)) {
+        $classes[] = 'wptiny-page';
+    }
+
+    return $classes;
 }

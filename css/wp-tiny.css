@@ -10,7 +10,7 @@
 .text-center {
     text-align: center;
 }
-.site-content{
+.wptiny-page .site-content{
    background: url(../images/hiroxwapuu.jpg) top center no-repeat;
    height: 100vh;
    background-size: cover;
