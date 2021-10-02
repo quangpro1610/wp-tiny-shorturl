@@ -1,6 +1,13 @@
 # wp-tiny-shorturl
 A WordPress short link plugin with TinyURL API
 
+![Screenshot-1](https://i.imgur.com/0VCakUs.jpg)
+![Screenshot-2](https://i.imgur.com/laCSM6F.jpg)
+![Screenshot-3](https://i.imgur.com/qdCPI0X.jpg)
+![Screenshot-4](https://i.imgur.com/T1Qqrts.jpg)
+![Screenshot-5](https://i.imgur.com/Y0qpydG.jpg)
+![Screenshot-6](https://i.imgur.com/pocU0xY.jpg)
+
 ## Installation and usage
 
 1. Click [here](https://github.com/quangpro1610/wp-tiny-shorturl/archive/refs/heads/master.zip) to download this plugin to your computer.
