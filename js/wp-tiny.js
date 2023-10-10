@@ -22,7 +22,8 @@ jQuery(document).ready(function($) {
                 success: function(res){
                     let result = JSON.parse(res);
                     let end = JSON.parse(result.data);
-
+                    console.log(result)
+                    console.log(end)
                     if (result.status == 'success') {
                         if (end.code == 0) {
                             Swal.fire({

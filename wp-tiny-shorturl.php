@@ -67,8 +67,8 @@ if (!function_exists('wptiny_option_page')) {
                                 <?php $domains = get_option('domains'); ?>
                                 <select name="domains" id="domains">
                                     <option value="tinyurl.com" <?php selected($domains, 'tinyurl.com'); ?>>tinyurl.com</option>
-                                    <option value="rotf.lol" <?php selected($domains, 'rotf.lol'); ?>>rotf.lol</option>
-                                    <option value="tiny.one" <?php selected($domains, 'tiny.one'); ?>>tiny.one</option>
+                                    <!-- <option value="rotf.lol" <?php //selected($domains, 'rotf.lol'); ?>>rotf.lol</option> -->
+                                    <!-- <option value="tiny.one" <?php //selected($domains, 'tiny.one'); ?>>tiny.one</option> -->
                                 </select>
                             </td>
                         </tr>
@@ -155,27 +155,41 @@ function short_link()
     if ($_POST['action'] != 'short_link') {
         return;
     }
-    $domain = get_option('domains');
+    //$domain = get_option('domains');
     $api_token = get_option('api_token');
 
     $result = [];
-    $url = esc_url($_POST['url']);
+    $url = $_POST['url'];
     $alias = $_POST['alias'];
-    if (filter_var($url, FILTER_VALIDATE_URL)) {
-        $api = 'https://api.tinyurl.com/create?api_token=' . $api_token;
-        $ch = curl_init($api);
 
-        $data = array(
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        $api = 'https://api.tinyurl.com/create?api_token=' .  $api_token;
+    
+        $data_shorten = array(
             'url' => $url,
-            'domain' => $domain,
+            'domain' => 'tinyurl.com',
             'alias' => $alias
         );
-        $payload = json_encode($data);
-        
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'accept: application/json'));
+
+        $headers = array(
+            'Content-Type: application/json', 
+            'accept: application/json'
+        );
+
+        $ch = curl_init($api);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data_shorten));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        //curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.0.0 Safari/537.36');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $data = curl_exec($ch);
+        if ($data === false) {
+            // throw new Exception('Curl error: ' . curl_error($crl));
+            print_r('Curl error: ' . curl_error($ch));
+        }
+  
         curl_close($ch);
         $result['status'] = 'success';
         $result['data'] = $data;
