@@ -90,6 +90,36 @@ if (!function_exists('wptiny_option_page')) {
                 </table>
                 <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p>
             </form>
+			<h2 class="title">Your recent TinyURLs</h2>
+			<?php 
+				$api_token = get_option('api_token');
+				$api = 'https://api.tinyurl.com/urls/available?api_token=' .  $api_token;
+				$headers = array(
+					'Content-Type: application/json', 
+					'accept: application/json'
+				);
+
+				$ch = curl_init($api);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$data = curl_exec($ch);
+	
+				if ($data === false) {
+					// throw new Exception('Curl error: ' . curl_error($crl));
+					print_r('Curl error: ' . curl_error($ch));
+				}
+				$data_decode = json_decode($data);
+				$data_decode_arr = $data_decode->data;
+				$my_urls = [];
+				foreach ($data_decode_arr as $key => $value) {
+					$my_urls[] = $value->tiny_url;
+				}
+				
+				curl_close($ch);
+			?>
+			<textarea name="my-urls" id="my-urls" class="large-text" rows="3"><?php echo implode("\n", $my_urls); ?></textarea>
         </div>
         <?php
     }
@@ -127,17 +157,17 @@ if (!function_exists('wptiny_form')) {
                <div class="form-element">
                     <form action="" id="shorten-form" method="post">
                         <div class="form-group">
-                            <label for="url">Enter a long URL to make</label>
-                            <input type="text" name="url" id="url" class="form-control">
+                            <label for="url">Shorten a long URL</label>
+                            <input type="text" name="url" id="url" class="form-control" placeholder="Enter long link here">
                         </div>
                         <div class="form-group">
                             <label for="url">Customize your link</label>
                             <div class="input-group">
-                                <strong><?php echo $domains; ?>/</strong><input type="text" name="alias" id="alias" class="form-control" placeholder="Your custom alias">
+                                <strong><?php echo $domains; ?>/</strong><input type="text" name="alias" id="alias" class="form-control" placeholder="Enter alias">
                             </div>
                         </div>
                         <div class="form-group text-center">
-                            <input type="submit" name="create_link" value="Make short URL">
+                            <input type="submit" name="create_link" value="Shorten URL">
                         </div>
                     </form>
                </div>

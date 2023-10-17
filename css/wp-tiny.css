@@ -27,6 +27,7 @@
 }
 .form-element .form-group > * {
     display: block;
+	text-align: center;
 }
 .form-element form label {
     margin-bottom: 5px;
@@ -75,5 +76,6 @@
     text-align: center;
 }
 .form-element form .input-group .form-control {
-    width: calc(100% - 100px);
+	margin-left: 25px;
+    width: 200px;
 } 
