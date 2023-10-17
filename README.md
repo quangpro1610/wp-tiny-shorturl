@@ -21,3 +21,5 @@ A WordPress short link plugin with TinyURL API
 > If there are difficulties in installation and use, please contact at [here](https://cv.codedaokysu.com/#contact)
 
 Note: This API is only availible to authorized users. It requires an API token that is used for http bearer authentication as described in the OpenAPI specification. To create an API token for TinyURL please login to your account and visit [Settings -> API](https://tinyurl.com/app/settings/api). This token should be kept a secret to prevent unathorized use of your account. If you loose your token or belive that it may have been stolen, please removed the old token and create a new one.
+
+## Please note: The alias must include both letters and numbers when you create a unique alias
